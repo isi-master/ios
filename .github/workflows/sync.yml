@@ -16,8 +16,13 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          submodules: false
 
       - name: Push to GitLab
+        env:
+          GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
         run: |
-          git remote add gitlab https://oauth2:${{ secrets.GITLAB_TOKEN }}@git.bit-group.co/bit-group/estatego/estatego-nextcloud-ios.git
+          ENCODED_TOKEN=$(python3 -c 'import urllib.parse,os; print(urllib.parse.quote(os.environ["GITLAB_TOKEN"], safe=""))')
+          git remote add gitlab "https://oauth2:${ENCODED_TOKEN}@git.bit-group.co/bit-group/estatego/estatego-nextcloud-ios.git"
+          git config http.postBuffer 524288000
           git push gitlab main --force
