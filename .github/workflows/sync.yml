@@ -3,7 +3,7 @@ name: Sync to GitLab
 on:
   push:
     branches:
-      - main
+      - master
   schedule:
     - cron: '0 2 * * *'
   workflow_dispatch:
@@ -25,4 +25,4 @@ jobs:
           ENCODED_TOKEN=$(python3 -c 'import urllib.parse,os; print(urllib.parse.quote(os.environ["GITLAB_TOKEN"], safe=""))')
           git remote add gitlab "https://oauth2:${ENCODED_TOKEN}@git.bit-group.co/bit-group/estatego/estatego-nextcloud-ios.git"
           git config http.postBuffer 524288000
-          git push gitlab main --force
+          git push gitlab master:main --force
