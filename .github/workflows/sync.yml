@@ -23,6 +23,6 @@ jobs:
           GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
         run: |
           ENCODED_TOKEN=$(python3 -c 'import urllib.parse,os; print(urllib.parse.quote(os.environ["GITLAB_TOKEN"], safe=""))')
-          git remote add gitlab "https://oauth2:${ENCODED_TOKEN}@git.bit-group.co/bit-group/estatego/estatego-nextcloud-ios.git"
+          git remote add gitlab "https://oauth2:${ENCODED_TOKEN}@git.bit-group.co/bit-group/estatego/mobile/estatego-core-ios.git"
           git config http.postBuffer 524288000
           git push gitlab master:main --force
